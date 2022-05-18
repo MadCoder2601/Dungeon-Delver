@@ -4,7 +4,15 @@ from time import sleep
 
 import sys
 
- 
+def clear():
+  
+    # for windows
+    if name == 'nt':
+        _ = system('cls')
+  
+    # for mac and linux(here, os.name is 'posix')
+    else:
+        _ = system('clear')
 
 # Declare all your classes first
 
@@ -90,6 +98,8 @@ def fightSequence(player, monster):
 
         if turn == 'player':
 
+            clear()
+          
             print("Player Health: " + str(player.health))
 
             print("Monster Health: " + str(monster.health))
@@ -120,6 +130,8 @@ def fightSequence(player, monster):
                 if monster.health <= 0:
 
                   print("You Killed The " + monster.desc + "!")
+                  clear()
+                  
                   fightSequence(player, monsterSetup())
 
                   return True
@@ -127,6 +139,7 @@ def fightSequence(player, monster):
                 turn = 'monster'
 
         elif turn == 'monster':
+          clear()
           roll = random.randint(1,20)
           if roll >= player.defense:
             print("The " + monster.desc + " hit you!")
@@ -135,6 +148,8 @@ def fightSequence(player, monster):
             print("The " + monster.desc + " Did " + str(monster.attack) + " Damage!")
             if (player.health == 0) or (player.health < 0):
 
+              clear()
+              
               print("You Died!")
 
               quit(1)
