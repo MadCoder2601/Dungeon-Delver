@@ -99,11 +99,24 @@ def fightSequence(player, monster):
             action = action.lower()
 
             if action == 'attack':
-              if random.randint(1,20) >= monster.defense:
-              monster.health = monster.health - player.attack
+              roll = random.randint(1,20)
+              if roll >= monster.defense:
+                print("You Hit!")
+                sleep(0.3)
+                monster.health = monster.health - player.attack
 
                 print("You Dealt " + str(player.attack) + " Damage!")
+                if monster.health <= 0:
 
+                  sleep(0.3)
+                  print("You Killed The " + monster.desc + "!")
+                  fightSequence(player, monsterSetup())
+
+                  return True
+
+                turn = 'monster'
+              else:
+                print("You Missed!")
                 if monster.health <= 0:
 
                   print("You Killed The " + monster.desc + "!")
@@ -114,11 +127,22 @@ def fightSequence(player, monster):
                 turn = 'monster'
 
         elif turn == 'monster':
-
+          roll = random.randint(1,20)
+          if roll >= player.defense:
+            print("The " + monster.desc + " hit you!")
+            sleep(0.3)
             player.health = player.health - monster.attack
-
             print("The " + monster.desc + " Did " + str(monster.attack) + " Damage!")
+            if (player.health == 0) or (player.health < 0):
 
+              print("You Died!")
+
+              quit(1)
+
+            turn = 'player'
+            
+          else:
+            print("The " + monster.desc + " Missed!")
             if (player.health == 0) or (player.health < 0):
 
               print("You Died!")
@@ -150,7 +174,7 @@ monsterChoice = monster_list[random.randint(0,2)]
  
 
  
-name = input("Enter your name") 
+name = input("Enter your name: ") 
 
 playerChoice = input("What class do you want to be? (Warrior, Archer, Mage)? ")
 
