@@ -77,7 +77,7 @@ def monsterSetup():
  
 
 def fightSequence(player, monster):
-
+  
     encounter = 1
 
     turn = 'player'
@@ -99,14 +99,15 @@ def fightSequence(player, monster):
             action = action.lower()
 
             if action == 'attack':
-
-                monster.health = monster.health - player.attack
+              if random.randint(1,20) >= monster.defense:
+              monster.health = monster.health - player.attack
 
                 print("You Dealt " + str(player.attack) + " Damage!")
 
                 if monster.health <= 0:
 
                   print("You Killed The " + monster.desc + "!")
+                  fightSequence(player, monsterSetup())
 
                   return True
 
@@ -149,8 +150,7 @@ monsterChoice = monster_list[random.randint(0,2)]
  
 
  
-
- 
+name = input("Enter your name") 
 
 playerChoice = input("What class do you want to be? (Warrior, Archer, Mage)? ")
 
